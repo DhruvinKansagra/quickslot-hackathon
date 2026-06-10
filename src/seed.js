@@ -1,4 +1,4 @@
-const prisma = require("./prisma");
+const prisma = require("./config/prisma");
 
 async function main() {
   // Clear old data
