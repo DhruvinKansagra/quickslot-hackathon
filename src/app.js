@@ -1,12 +1,15 @@
 const express = require("express");
 const cors = require("cors");
-const prisma = require("./prisma");
+const prisma = require("./config/prisma");
 require("dotenv").config();
 
 const app = express();
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 
 app.use(cors());
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/", async (req, res) => {
   try {
@@ -23,6 +26,9 @@ app.get("/", async (req, res) => {
     });
   }
 });
+
+const venueRoutes = require("./routes/venue.routes");
+app.use("/api/v1/venues", venueRoutes);
 
 const PORT = process.env.PORT || 3000;
 
