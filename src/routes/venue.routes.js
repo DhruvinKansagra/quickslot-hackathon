@@ -1,32 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const prisma = require("../config/prisma");
+
+const { getAllVenues } = require("../controllers/venue.controller");
 
 /**
  * @swagger
- * /venues:
+ * /api/v1/venues:
  *   get:
  *     summary: Get all venues
  *     tags:
  *       - Venues
  *     responses:
  *       200:
- *         description: List of venues
+ *         description: Venues fetched successfully
  */
-router.get("/", async (req, res) => {
-  try {
-    const venues = await prisma.venue.findMany();
-
-    res.status(200).json({
-      success: true,
-      data: venues,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-});
+router.get("/", getAllVenues);
 
 module.exports = router;

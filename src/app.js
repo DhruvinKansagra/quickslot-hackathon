@@ -28,9 +28,10 @@ app.get("/", async (req, res) => {
 });
 
 const venueRoutes = require("./routes/venue.routes");
-app.use("/api/v1/venues", venueRoutes);
 
 const PORT = process.env.PORT || 3000;
+
+app.use("/api/v1/venues", venueRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
